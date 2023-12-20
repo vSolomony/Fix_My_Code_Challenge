@@ -6,7 +6,7 @@ import hashlib
 import uuid
 
 
-class User():
+class User:
     """
     User class:
     - id: public string unique (uuid)
@@ -35,7 +35,7 @@ class User():
         Password setter:
         - `None` if `pwd` is `None`
         - `None` if `pwd` is not a string
-        - Hash `pwd` in MD5 before assign to `__password`
+        - Hash `pwd` in MD5 before assigning to `__password`
         """
         if pwd is None or type(pwd) is not str:
             self.__password = None
@@ -54,10 +54,10 @@ class User():
             return False
         if self.__password is None:
             return False
-        return hashlib.md5(pwd.encode()).hexdigest().upper() == self.__password
+        return hashlib.md5(pwd.encode()).hexdigest().lower() == self.__password
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Test User")
 
     user_1 = User()
