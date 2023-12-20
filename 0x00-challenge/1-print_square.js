@@ -13,6 +13,7 @@ if (process.argv.length <= 2) {
     process.exit(1);
 }
 
+// Use radix 10 for decimal numbers
 const size = parseInt(process.argv[2], 10);
 
 for (let i = 0; i < size; i++) {
