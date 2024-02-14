@@ -1,0 +1,59 @@
+Migration:
+
+Generate a migration to add the 'online' boolean column to your posts table.
+bash
+Copy code
+rails generate migration AddOnlineToPosts online:boolean
+Run the migration with rails db:migrate to apply the changes to your database.
+Model:
+
+In your Post model (app/models/post.rb), ensure that the new column is reflected.
+ruby
+Copy code
+class Post < ApplicationRecord
+  # existing code
+
+  # add the 'online' attribute
+  attribute :online, :boolean, default: true
+end
+Show/Hide Posts:
+
+Modify your queries in the controller or views to filter posts based on the 'online' attribute.
+ruby
+Copy code
+# Example in a controller action
+def index
+  @posts = Post.where(online: true)
+end
+Edit Route:
+
+In your PostsController, add an edit action to handle updating the 'online' attribute.
+ruby
+Copy code
+def edit
+  @post = Post.find(params[:id])
+end
+
+def update
+  @post = Post.find(params[:id])
+  if @post.update(post_params)
+    redirect_to @post, notice: 'Post was successfully updated.'
+  else
+    render :edit
+  end
+end
+
+private
+
+def post_params
+  params.require(:post).permit(:title, :content, :online)
+end
+Modify your edit.html.erb view to include a form field for updating the 'online' attribute.
+html
+Copy code
+<%= form_for @post do |f| %>
+  <%= f.label :online %>
+  <%= f.check_box :online %>
+
+  <%= f.submit "Update Post" %>
+<% end %>
